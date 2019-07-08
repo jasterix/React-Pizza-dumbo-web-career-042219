@@ -3,17 +3,23 @@ import Pizza from '../components/Pizza'
 
 class PizzaList extends Component {
 
-
+  handleClick = (event) => {
+    this.props.editPizza(this.props)
+  }
 
   render() {
-      let pizzas = this.props.pizzaList.map(pizza => (
-          <Pizza
-            key={pizza.id}
-            {...pizza} />
+
+    // Pass pizza props to Pizza component
+    let pizzas = this.props.pizzaList.map(pizza => (
+        <Pizza
+          key={pizza.id}
+          {...pizza}
+          editPizza = {this.props.onEditPizza}
+           />
 
     ))
 
-    // console.log(this.props.pizzaList);
+    // console.log(this.props);
 
     return (
       <table className="table table-striped">

@@ -6,9 +6,11 @@ import PizzaList from './containers/PizzaList'
 class App extends Component {
 
   state = {
-    pizzaList: []
+    pizzaList: [],
+    newPizza: {}
   }
 
+//-----------------------fetch pizza list---------
   componentDidMount() {
     fetch("http://localhost:3000/pizzas")
     .then(res => res.json())
@@ -17,15 +19,24 @@ class App extends Component {
     })
   }
 
+//----------------Handle Edit Pizza
+  handleEditPizza = (pizzaObj) => {
+    this.setState({newPizza: pizzaObj})
+  }
+
   render() {
     // console.log(this.state);
 
     return (
       <Fragment>
         <Header/>
-        <PizzaForm/>
+        <PizzaForm editPizza={this.handleEditPizza}
+            newPizza={this.state.newPizza}
+          />
 
         <PizzaList pizzaList={this.state.pizzaList}
+          onEditPizza={this.handleEditPizza}
+
           />
       </Fragment>
     );
