@@ -7,7 +7,10 @@ class App extends Component {
 
   state = {
     pizzaList: [],
-    newPizza: {}
+    editedPizza: {},
+    topping: "",
+    size: "",
+    vegetarian: ""
   }
 
 //-----------------------fetch pizza list---------
@@ -21,17 +24,24 @@ class App extends Component {
 
 //----------------Handle Edit Pizza
   handleEditPizza = (pizzaObj) => {
-    this.setState({newPizza: pizzaObj})
+    this.setState({editedPizza: pizzaObj})
   }
+  handlPizzaTopping = (topping) => {
+    const updatedSelectedPizza = {...this.state.editedPizza}
 
+    updatedSelectedPizza.topping = topping
+    this.setState({editedPizza: updatedSelectedPizza})
+  }
   render() {
     // console.log(this.state);
 
     return (
       <Fragment>
         <Header/>
-        <PizzaForm editPizza={this.handleEditPizza}
-            newPizza={this.state.newPizza}
+        <PizzaForm
+            onChangePizzaTopping={this.handlPizzaTopping}
+            editPizza={this.handleEditPizza}
+            editedPizza={this.state.editedPizza}
           />
 
         <PizzaList pizzaList={this.state.pizzaList}
